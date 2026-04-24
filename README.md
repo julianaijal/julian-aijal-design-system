@@ -8,7 +8,7 @@ A design system for **julianaijal.com** — the personal portfolio and blog of J
 
 | Resource | Location |
 |---|---|
-| Figma file | `Julian Portfolio.fig` |
+| Figma file | [Julian Portfolio](https://www.figma.com/design/ghfGlEY2CRIkU4cBoDFMls/Julian-Portfolio) |
 | Codebase | [github.com/julianaijal/julianaijal.com](https://github.com/julianaijal/julianaijal.com) |
 | Live site | [julianaijal.com](https://julianaijal.com) |
 
