@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #111827; font-family: 'Inter', sans-serif; padding: 20px; }
+  .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; }
+  .item { display: flex; flex-direction: column; gap: 6px; }
+  .sample { font-size: 28px; font-weight: 700; }
+  .label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.02em; text-transform: uppercase; }
+  .sub   { font-size: 11px; color: rgba(255,255,255,0.4); }
+  .surfaces { display: flex; gap: 8px; margin-top: 4px; }
+  .chip { height: 40px; width: 80px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; letter-spacing: 0.02em; }
+</style>
+</head><body>
+<div class="row">
+  <div class="item">
+    <div class="sample" style="color:#ffffff">Aa</div>
+    <div class="label">fg1</div><div class="sub">rgb(255,255,255)</div>
+  </div>
+  <div class="item">
+    <div class="sample" style="color:rgba(255,255,255,0.75)">Aa</div>
+    <div class="label">fg2</div><div class="sub">rgba(255,255,255,0.75)</div>
+  </div>
+  <div class="item">
+    <div class="sample" style="color:rgba(255,255,255,0.5)">Aa</div>
+    <div class="label">fg3</div><div class="sub">rgba(255,255,255,0.5)</div>
+  </div>
+  <div class="item">
+    <div class="sample" style="background:linear-gradient(86.58deg,#6f39ff 32.64%,#35b8fe 60.62%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Aa</div>
+    <div class="label">gradient</div><div class="sub">brand text gradient</div>
+  </div>
+</div>
+<div class="surfaces" style="margin-top:16px">
+  <div class="chip" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)">OVERLAY</div>
+  <div class="chip" style="background:rgba(111,57,255,0.15);border:1px solid #6f39ff;color:#6f39ff">PURPLE</div>
+</div>
+</body></html>

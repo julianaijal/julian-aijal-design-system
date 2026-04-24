@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julian Aijal — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: #111827; color: #fff; line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+
+/* ── Tokens ────────────────────────────────────────────── */
+:root {
+  --bg:       #111827;
+  --purple:   #6f39ff;
+  --blue:     #35b8fe;
+  --orange:   #ff641e;
+  --fg1:      #ffffff;
+  --fg2:      rgba(255,255,255,0.75);
+  --fg3:      rgba(255,255,255,0.5);
+  --card:     rgba(255,255,255,0.07);
+  --border:   rgba(255,255,255,0.08);
+  --grad:     linear-gradient(135deg, #6f39ff 0%, #35b8fe 100%);
+  --grad-btn: linear-gradient(180deg, #6f39ff 0%, #35b8fe 100%);
+  --max:      1120px;
+}
+
+/* ── Layout ────────────────────────────────────────────── */
+.wrap   { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+.section { padding: 80px 0; border-top: 1px solid var(--border); }
+.section:first-of-type { border-top: none; }
+
+/* ── Nav ───────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(17,24,39,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: 64px; display: flex; align-items: center;
+}
+.nav__inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.nav__logo img { height: 24px; display: block; }
+.nav__links { display: flex; gap: 28px; list-style: none; }
+.nav__links a { font-size: 14px; font-weight: 500; color: var(--fg3); letter-spacing: -0.01em; transition: color 0.15s; }
+.nav__links a:hover { color: var(--fg1); }
+.nav__cta {
+  height: 36px; padding: 0 18px; border-radius: 9999px;
+  background: var(--grad-btn); color: #fff;
+  font: 600 14px/36px 'Inter'; letter-spacing: -0.01em;
+  border: none; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center;
+}
+
+/* ── Hero ──────────────────────────────────────────────── */
+.hero { padding: 96px 0 80px; }
+.hero__label { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 20px; }
+.hero__title { font-size: clamp(36px, 5vw, 56px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px; }
+.hero__title span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero__sub { font-size: 18px; color: var(--fg2); line-height: 1.6; max-width: 560px; margin-bottom: 36px; }
+.hero__pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill { height: 28px; padding: 0 12px; border-radius: 9999px; border: 1px solid var(--border); font-size: 13px; font-weight: 500; color: var(--fg3); display: inline-flex; align-items: center; }
+
+/* ── Section heading ───────────────────────────────────── */
+.sh { margin-bottom: 40px; }
+.sh__label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+.sh__title { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+.sh__sub   { font-size: 16px; color: var(--fg3); margin-top: 8px; }
+
+/* ── Colors ────────────────────────────────────────────── */
+.colors-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.color-chip { display: flex; flex-direction: column; gap: 8px; }
+.color-chip__swatch { width: 80px; height: 80px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); }
+.color-chip__name   { font-size: 11px; font-weight: 600; color: var(--fg3); letter-spacing: 0.04em; text-transform: uppercase; }
+.color-chip__hex    { font-size: 12px; color: var(--fg2); font-weight: 500; }
+.grad-swatch { width: 180px; height: 80px; border-radius: 12px; background: var(--grad); }
+
+/* ── Type ──────────────────────────────────────────────── */
+.type-rows { display: flex; flex-direction: column; gap: 0; }
+.type-row  { display: flex; align-items: baseline; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.type-row:last-child { border-bottom: none; }
+.type-row__size { font-size: 11px; color: var(--fg3); width: 36px; flex-shrink: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.type-row__sample { color: var(--fg1); letter-spacing: -0.01em; flex: 1; }
+.type-row__meta   { font-size: 12px; color: var(--fg3); flex-shrink: 0; }
+
+/* ── Buttons ───────────────────────────────────────────── */
+.btn-grid { display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; }
+.btn-group { display: flex; flex-direction: column; gap: 10px; }
+.btn-group__label { font-size: 11px; font-weight: 600; color: var(--fg3); letter-spacing: 0.06em; text-transform: uppercase; }
+.btn-group__row   { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.btn-p { height: 48px; padding: 0 24px; border-radius: 9999px; background: var(--grad-btn); color: #fff; font: 700 18px/1 'Inter'; letter-spacing: -0.01em; border: none; cursor: pointer; transition: opacity 0.15s; }
+.btn-p:hover { opacity: 0.85; }
+.btn-s { height: 48px; padding: 0 24px; border-radius: 9999px; background: rgba(0,0,0,0.15); color: #fff; font: 700 18px/1 'Inter'; letter-spacing: -0.01em; border: none; cursor: pointer; }
+.btn-t { height: 48px; padding: 0 24px; background: none; color: var(--purple); font: 700 18px/1 'Inter'; letter-spacing: -0.01em; border: none; cursor: pointer; text-decoration: underline; }
+.btn-t:hover { text-decoration: none; }
+.btn-o { height: 30px; padding: 0 10px; border-radius: 3px; background: rgba(111,57,255,0.15); border: 1px solid var(--purple); color: var(--purple); font: 700 14px/1 'Inter'; letter-spacing: 0.02em; cursor: pointer; }
+.btn-o:hover { background: rgba(111,57,255,0); }
+.btn-sk { height: 30px; padding: 0 10px; border-radius: 3px; background: rgba(255,100,30,0.15); border: 1px solid var(--orange); color: var(--orange); font: 700 14px/1 'Inter'; letter-spacing: 0.02em; cursor: pointer; }
+
+/* ── Cards ─────────────────────────────────────────────── */
+.cards-grid { display: flex; flex-direction: column; gap: 32px; }
+.cards-row  { display: flex; gap: 20px; flex-wrap: wrap; }
+
+/* Showcase card */
+.sc { position: relative; width: 280px; height: 218px; border-radius: 8px; background: rgba(255,255,255,0.1); overflow: hidden; box-shadow: 0 20px 24px rgba(0,0,0,0.12); transition: border 0.15s; flex-shrink: 0; cursor: pointer; border: 1px solid transparent; }
+.sc:hover { border-color: rgba(255,255,255,0.5); }
+.sc__img   { position: absolute; left: 12px; top: 12px; right: 12px; height: 143px; border-radius: 4px; overflow: hidden; }
+.sc__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sc__title { position: absolute; left: 12px; bottom: 28px; font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+.sc__cat   { position: absolute; left: 12px; bottom: 10px; font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: -0.01em; }
+.sc__plus  { position: absolute; right: 12px; bottom: 10px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; opacity: 0.5; }
+.sc__plus img { width: 18px; height: 18px; filter: brightness(0) invert(1); }
+
+/* Article card */
+.ac { position: relative; max-width: 640px; height: 110px; border-radius: 6px; border: 1px solid var(--purple); overflow: hidden; }
+.ac__bg   { position: absolute; inset: 0; background: url('assets/article-card-texture.png') center / cover no-repeat; }
+.ac__icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.ac__icon img { width: 36px; height: auto; filter: brightness(0) invert(1); }
+.ac__text { position: absolute; left: 76px; top: 50%; transform: translateY(-50%); right: 120px; }
+.ac__title{ font-size: 16px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; color: #111827; }
+.ac__sub  { font-size: 13px; letter-spacing: -0.01em; color: rgba(17,24,39,0.5); margin-top: 2px; }
+.ac__btn  { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); height: 28px; padding: 0 10px; border-radius: 3px; background: rgba(111,57,255,0.15); border: 1px solid var(--purple); display: flex; align-items: center; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--purple); white-space: nowrap; }
+
+/* Project detail */
+.pd { background: #fff; border-radius: 16px; padding: 32px; max-width: 640px; }
+.pd__title { font-size: 24px; font-weight: 700; color: #111827; letter-spacing: -0.01em; margin-bottom: 4px; }
+.pd__cat   { font-size: 14px; color: rgba(17,24,39,0.5); letter-spacing: -0.01em; margin-bottom: 20px; }
+.pd__img   { width: 100%; height: 180px; border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+.pd__img img { width: 100%; height: 100%; object-fit: cover; }
+.pd__stitle{ font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.pd__body  { font-size: 14px; line-height: 1.6; color: rgba(17,24,39,0.75); margin-bottom: 16px; }
+.pd__tags  { display: flex; gap: 6px; flex-wrap: wrap; }
+.pd__tag   { height: 26px; padding: 0 8px; border-radius: 3px; background: rgba(255,100,30,0.12); border: 1px solid #ff641e; color: #ff641e; font: 700 12px/26px 'Inter'; letter-spacing: 0.02em; }
+
+/* ── Icons ─────────────────────────────────────────────── */
+.icons-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+.icon-item  { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.icon-box   { width: 48px; height: 48px; border-radius: 10px; background: var(--card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+.icon-box img { width: 24px; height: 24px; filter: brightness(0) invert(1); }
+.icon-name  { font-size: 10px; color: var(--fg3); letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* ── Navigation preview ────────────────────────────────── */
+.nav-preview {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden;
+}
+.nav-p { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 32px; }
+.nav-p__logo img { height: 24px; }
+.nav-p__links { display: flex; gap: 28px; align-items: center; }
+.nav-p__links span { font-size: 16px; font-weight: 500; color: var(--fg1); }
+.nav-p__contact { display: flex; align-items: center; gap: 6px; }
+.nav-p__contact img { width: 18px; height: 18px; filter: brightness(0) invert(1); }
+
+/* ── Footer preview ────────────────────────────────────── */
+.footer-preview {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden; margin-top: 16px;
+}
+.footer-p { display: flex; align-items: center; justify-content: space-between; height: 80px; padding: 0 32px; }
+.footer-p__ping { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.footer-p__ping img { width: 24px; height: 24px; filter: brightness(0) invert(1); }
+.footer-p__logo img { height: 20px; }
+.footer-p__social { display: flex; gap: 12px; }
+.footer-p__social img { width: 22px; height: 22px; filter: brightness(0) invert(1); opacity: 0.7; }
+
+/* ── Site footer ───────────────────────────────────────── */
+.site-footer { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; }
+.site-footer p { font-size: 14px; color: var(--fg3); }
+.site-footer a { color: var(--purple); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav__inner">
+    <div class="nav__logo">
+      <img src="assets/julian-aijal-logo.svg" alt="Julian Aijal">
+    </div>
+    <ul class="nav__links">
+      <li><a href="#colors">Colors</a></li>
+      <li><a href="#type">Type</a></li>
+      <li><a href="#buttons">Buttons</a></li>
+      <li><a href="#components">Components</a></li>
+      <li><a href="#icons">Icons</a></li>
+    </ul>
+    <a href="https://julianaijal.com" target="_blank" rel="noopener" class="nav__cta">Visit site →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero">
+    <div class="hero__label">Design System</div>
+    <h1 class="hero__title">
+      Julian Aijal<br><span>Visual Foundation</span>
+    </h1>
+    <p class="hero__sub">
+      Colors, typography, components and assets for julianaijal.com — a personal portfolio and blog built with Next.js.
+    </p>
+    <div class="hero__pills">
+      <span class="pill">Inter</span>
+      <span class="pill">#111827 dark</span>
+      <span class="pill">#6f39ff purple</span>
+      <span class="pill">#35b8fe blue</span>
+      <span class="pill">Next.js 15</span>
+      <span class="pill">SASS modules</span>
+    </div>
+  </div>
+</div>
+
+<!-- COLORS -->
+<div class="wrap">
+  <section class="section" id="colors">
+    <div class="sh">
+      <div class="sh__label">01 — Colors</div>
+      <h2 class="sh__title">Palette</h2>
+      <p class="sh__sub">A dark navy base with a purple-to-blue gradient as the primary brand accent.</p>
+    </div>
+    <div class="colors-grid">
+      <div class="color-chip">
+        <div class="color-chip__swatch" style="background:#111827; border-color:rgba(255,255,255,0.15)"></div>
+        <div class="color-chip__name">BG</div>
+        <div class="color-chip__hex">#111827</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip__swatch" style="background:#6f39ff"></div>
+        <div class="color-chip__name">Purple</div>
+        <div class="color-chip__hex">#6f39ff</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip__swatch" style="background:#9747ff"></div>
+        <div class="color-chip__name">Purple Mid</div>
+        <div class="color-chip__hex">#9747ff</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip__swatch" style="background:#35b8fe"></div>
+        <div class="color-chip__name">Blue</div>
+        <div class="color-chip__hex">#35b8fe</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip__swatch" style="background:#ff641e"></div>
+        <div class="color-chip__name">Orange</div>
+        <div class="color-chip__hex">#ff641e</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip__swatch" style="background:#fbbc04"></div>
+        <div class="color-chip__name">Yellow</div>
+        <div class="color-chip__hex">#fbbc04</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip__swatch" style="background:#71c8df"></div>
+        <div class="color-chip__name">Teal</div>
+        <div class="color-chip__hex">#71c8df</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip__swatch" style="background:#2a88c9"></div>
+        <div class="color-chip__name">Mid Blue</div>
+        <div class="color-chip__hex">#2a88c9</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip__swatch" style="background:#858585"></div>
+        <div class="color-chip__name">Grey</div>
+        <div class="color-chip__hex">#858585</div>
+      </div>
+      <div class="color-chip">
+        <div class="grad-swatch"></div>
+        <div class="color-chip__name">Brand Gradient</div>
+        <div class="color-chip__hex">#6f39ff → #35b8fe</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- TYPE -->
+<div class="wrap">
+  <section class="section" id="type">
+    <div class="sh">
+      <div class="sh__label">02 — Typography</div>
+      <h2 class="sh__title">Type Scale</h2>
+      <p class="sh__sub">Inter — one family, four weights. Tight letter-spacing throughout.</p>
+    </div>
+    <div class="type-rows">
+      <div class="type-row">
+        <div class="type-row__size">56</div>
+        <div class="type-row__sample" style="font-size:56px;font-weight:700;line-height:1">
+          Hi, I'm <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Julian</span>
+        </div>
+        <div class="type-row__meta">700 · Hero</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__size">40</div>
+        <div class="type-row__sample" style="font-size:40px;font-weight:700;line-height:1">Scripting</div>
+        <div class="type-row__meta">700 · Section</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__size">32</div>
+        <div class="type-row__sample" style="font-size:32px;font-weight:700;line-height:1">Ping me!</div>
+        <div class="type-row__meta">700 · Footer CTA</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__size">24</div>
+        <div class="type-row__sample" style="font-size:24px;font-weight:400;line-height:1;color:rgba(255,255,255,0.75)">Developer, marketer, writer.</div>
+        <div class="type-row__meta">400 · Lead</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__size">18</div>
+        <div class="type-row__sample" style="font-size:18px;font-weight:500;line-height:1">Scripting · Ramblings · Ping me!</div>
+        <div class="type-row__meta">500 · Nav / Body</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__size">16</div>
+        <div class="type-row__sample" style="font-size:16px;font-weight:400;line-height:1;color:rgba(255,255,255,0.5)">Media & Events</div>
+        <div class="type-row__meta">400 · Caption</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__size">14</div>
+        <div class="type-row__sample" style="font-size:14px;font-weight:700;letter-spacing:0.02em;line-height:1">READ MORE</div>
+        <div class="type-row__meta">700 · Label</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- BUTTONS -->
+<div class="wrap">
+  <section class="section" id="buttons">
+    <div class="sh">
+      <div class="sh__label">03 — Buttons</div>
+      <h2 class="sh__title">Button Variants</h2>
+      <p class="sh__sub">Five types. Hover over each to see state changes.</p>
+    </div>
+    <div class="btn-grid">
+      <div class="btn-group">
+        <div class="btn-group__label">Primary · gradient pill</div>
+        <div class="btn-group__row">
+          <button class="btn-p">Mail me</button>
+          <button class="btn-p">Download CV</button>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group__label">Secondary · dark ghost</div>
+        <div class="btn-group__row">
+          <button class="btn-s">Download CV</button>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group__label">Text / link</div>
+        <div class="btn-group__row">
+          <button class="btn-t">See my work</button>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group__label">Tertiary outline · purple</div>
+        <div class="btn-group__row">
+          <button class="btn-o">Read more</button>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group__label">Skill tag · orange</div>
+        <div class="btn-group__row">
+          <button class="btn-sk">HTML</button>
+          <button class="btn-sk">CSS</button>
+          <button class="btn-sk">JavaScript</button>
+          <button class="btn-sk">Next.js</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- COMPONENTS -->
+<div class="wrap">
+  <section class="section" id="components">
+    <div class="sh">
+      <div class="sh__label">04 — Components</div>
+      <h2 class="sh__title">UI Components</h2>
+      <p class="sh__sub">Core building blocks of the portfolio interface.</p>
+    </div>
+
+    <!-- Nav -->
+    <div style="margin-bottom:40px">
+      <div style="font-size:13px;font-weight:600;color:var(--fg3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px">Navigation</div>
+      <div class="nav-preview">
+        <div class="nav-p">
+          <div class="nav-p__logo"><img src="assets/julian-aijal-logo.svg" alt="Julian Aijal"></div>
+          <div class="nav-p__links">
+            <span>Scripting</span>
+            <span>Ramblings</span>
+            <div class="nav-p__contact">
+              <img src="assets/icons/envelope.svg" alt="">
+              <span style="font-size:16px;font-weight:500;color:var(--fg1)">Ping me!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Showcase cards -->
+    <div style="margin-bottom:40px">
+      <div style="font-size:13px;font-weight:600;color:var(--fg3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px">Showcase Cards — hover for border state</div>
+      <div class="cards-row">
+        <div class="sc">
+          <div class="sc__img"><img src="assets/project-screenshot.jpg" alt="The Next Web"></div>
+          <div class="sc__title">The Next Web</div>
+          <div class="sc__cat">Media &amp; Events</div>
+          <div class="sc__plus"><img src="assets/icons/plus.svg" alt=""></div>
+        </div>
+        <div class="sc">
+          <div class="sc__img" style="background:linear-gradient(135deg,rgba(53,184,254,0.2),rgba(111,57,255,0.1))"></div>
+          <div class="sc__title">Where Is My Train</div>
+          <div class="sc__cat">Transit / PWA</div>
+          <div class="sc__plus"><img src="assets/icons/plus.svg" alt=""></div>
+        </div>
+        <div class="sc">
+          <div class="sc__img" style="background:linear-gradient(135deg,rgba(255,100,30,0.15),rgba(251,188,4,0.1))"></div>
+          <div class="sc__title">PvdAI</div>
+          <div class="sc__cat">AI / RAG</div>
+          <div class="sc__plus"><img src="assets/icons/plus.svg" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article cards -->
+    <div style="margin-bottom:40px">
+      <div style="font-size:13px;font-weight:600;color:var(--fg3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px">Article Cards</div>
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:640px">
+        <div class="ac">
+          <div class="ac__bg"></div>
+          <div class="ac__icon"><img src="assets/icons/chart.svg" alt=""></div>
+          <div class="ac__text">
+            <div class="ac__title">What is a knowledge graph and how does one work?</div>
+            <div class="ac__sub">It will do wonders for your SEO strategy.</div>
+          </div>
+          <div class="ac__btn">Read more</div>
+        </div>
+        <div class="ac">
+          <div class="ac__bg"></div>
+          <div class="ac__icon"><img src="assets/icons/cloud.svg" alt=""></div>
+          <div class="ac__text">
+            <div class="ac__title">How I built a real-time train departure PWA</div>
+            <div class="ac__sub">Integrating the NS API for live departures.</div>
+          </div>
+          <div class="ac__btn">Read more</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project detail -->
+    <div style="margin-bottom:40px">
+      <div style="font-size:13px;font-weight:600;color:var(--fg3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px">Project Detail Panel — white surface</div>
+      <div class="pd">
+        <div class="pd__title">The Next Web</div>
+        <div class="pd__cat">Media &amp; Events</div>
+        <div class="pd__img"><img src="assets/project-screenshot.jpg" alt="The Next Web"></div>
+        <div class="pd__stitle">About</div>
+        <div class="pd__body">Building and maintaining the editorial platform for The Next Web — a leading tech media brand.</div>
+        <div class="pd__stitle">My responsibilities</div>
+        <div class="pd__body">Front-end development, SEO optimisation, performance monitoring and editorial tooling.</div>
+        <div class="pd__tags">
+          <div class="pd__tag">HTML</div>
+          <div class="pd__tag">CSS</div>
+          <div class="pd__tag">JavaScript</div>
+          <div class="pd__tag">jQuery</div>
+          <div class="pd__tag">Git/Version Control</div>
+          <div class="pd__tag">Web Accessibility</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div>
+      <div style="font-size:13px;font-weight:600;color:var(--fg3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px">Footer</div>
+      <div class="footer-preview">
+        <div class="footer-p">
+          <div class="footer-p__ping">
+            <img src="assets/icons/envelope.svg" alt="">
+            Ping me!
+          </div>
+          <div class="footer-p__logo"><img src="assets/julian-aijal-logo.svg" alt="Julian Aijal"></div>
+          <div class="footer-p__social">
+            <img src="assets/icons/github.svg" alt="GitHub">
+            <img src="assets/icons/linkedin.svg" alt="LinkedIn">
+            <img src="assets/icons/x.svg" alt="X">
+            <img src="assets/icons/instagram.svg" alt="Instagram">
+            <img src="assets/icons/bluesky.svg" alt="Bluesky">
+            <img src="assets/icons/threads.svg" alt="Threads">
+            <img src="assets/icons/tiktok.svg" alt="TikTok">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ICONS -->
+<div class="wrap">
+  <section class="section" id="icons">
+    <div class="sh">
+      <div class="sh__label">05 — Iconography</div>
+      <h2 class="sh__title">Icons</h2>
+      <p class="sh__sub">Custom SVG set — social icons and UI icons. All used as white on dark backgrounds.</p>
+    </div>
+    <div class="icons-grid">
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/envelope.svg" alt=""></div><div class="icon-name">envelope</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/chart.svg" alt=""></div><div class="icon-name">chart</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/cloud.svg" alt=""></div><div class="icon-name">cloud</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/table.svg" alt=""></div><div class="icon-name">table</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/plus.svg" alt=""></div><div class="icon-name">plus</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/github.svg" alt=""></div><div class="icon-name">github</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/linkedin.svg" alt=""></div><div class="icon-name">linkedin</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/x.svg" alt=""></div><div class="icon-name">x</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/instagram.svg" alt=""></div><div class="icon-name">instagram</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/bluesky.svg" alt=""></div><div class="icon-name">bluesky</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/threads.svg" alt=""></div><div class="icon-name">threads</div></div>
+      <div class="icon-item"><div class="icon-box"><img src="assets/icons/tiktok.svg" alt=""></div><div class="icon-name">tiktok</div></div>
+    </div>
+    <div style="margin-top:32px">
+      <div style="font-size:13px;font-weight:600;color:var(--fg3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px">Logo</div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:12px;padding:20px 28px;display:inline-block">
+        <img src="assets/julian-aijal-logo.svg" alt="Julian Aijal" style="height:32px;display:block">
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SITE FOOTER -->
+<div class="wrap">
+  <footer class="site-footer">
+    <p>Julian Aijal Design System · <a href="https://julianaijal.com" target="_blank" rel="noopener">julianaijal.com</a> · <a href="https://github.com/julianaijal/julianaijal.com" target="_blank" rel="noopener">github.com/julianaijal</a></p>
+  </footer>
+</div>
+
+</body>
+</html>

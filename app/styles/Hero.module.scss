@@ -1,0 +1,95 @@
+@import 'utils/variables';
+@import 'utils/mixins';
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 4.4rem;
+  letter-spacing: -0.01em;
+  text-align: left;
+  height: 14rem;
+
+
+
+  @include tablet {
+    height: 18rem;
+  }
+
+  @include desktop {
+    height: inherit;
+  }
+  a {
+    color: #0070f3;
+    text-decoration: none;
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: underline;
+    }
+  }
+}
+
+.name {
+  background: linear-gradient(86.58deg, #6f39ff 32.64%, #35b8fe 60.62%),
+    linear-gradient(0deg, #ffffff, #ffffff);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cursor {
+  font-weight: 100;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.Hero {
+  &Grid {
+    display: grid;
+
+    @media screen and (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 767px) {
+      grid-template-rows: auto;
+    }
+  }
+
+  &__cta {
+    padding: 5rem 0;
+    @media screen and (max-width: 767px) {
+      padding: 1rem 0 2rem 0;
+      order: 1;
+    }
+  }
+
+  &__visual {
+    display: flex;
+  }
+}
+
+
+.fadeInText{
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.hiddenText {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+   }
+}

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julian Aijal — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #111827; color: #fff; }
+  a { color: inherit; text-decoration: none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useMemo } = React;
+
+/* ── TOKENS ─────────────────────────────────────────── */
+const C = {
+  bg:     '#111827',
+  purple: '#6f39ff',
+  blue:   '#35b8fe',
+  orange: '#ff641e',
+  fg1:    '#ffffff',
+  fg2:    'rgba(255,255,255,0.75)',
+  fg3:    'rgba(255,255,255,0.5)',
+  card:   'rgba(255,255,255,0.1)',
+};
+const GRAD = 'linear-gradient(180deg, #6f39ff 0%, #35b8fe 100%)';
+const GRAD_TEXT = 'linear-gradient(86.58deg, #6f39ff 32.64%, #35b8fe 60.62%)';
+
+/* ── NAV ─────────────────────────────────────────────── */
+function NavBar({ page, onNav }) {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const el = document.getElementById('scroll-root');
+    if (!el) return;
+    const fn = () => setScrolled(el.scrollTop > 10);
+    el.addEventListener('scroll', fn);
+    return () => el.removeEventListener('scroll', fn);
+  }, []);
+
+  return (
+    <nav style={{
+      position: 'sticky', top: 0, zIndex: 9001,
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      height: 80, padding: '0 9.75rem',
+      background: C.bg,
+      boxShadow: scrolled ? '0 4px 6px -1px rgba(0,0,0,0.3)' : 'none',
+      transition: 'box-shadow 0.3s ease',
+    }}>
+      <button onClick={() => onNav('home')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+        <img src="../../assets/julian-aijal-logo.svg" alt="Julian Aijal" style={{ height: 32, filter: 'invert(1)' }} />
+      </button>
+      <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
+        <button onClick={() => onNav('scripting')} style={{ background: 'none', border: 'none', color: page === 'scripting' ? C.purple : C.fg1, fontFamily: 'Inter', fontSize: 18, fontWeight: 500, cursor: 'pointer', letterSpacing: '-0.01em' }}>Scripting</button>
+        <button onClick={() => onNav('ramblings')} style={{ background: 'none', border: 'none', color: page === 'ramblings' ? C.purple : C.fg1, fontFamily: 'Inter', fontSize: 18, fontWeight: 500, cursor: 'pointer', letterSpacing: '-0.01em' }}>Ramblings</button>
+        <button onClick={() => onNav('contact')} style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontFamily: 'Inter' }}>
+          <img src="../../assets/icons/envelope.svg" alt="" style={{ width: 20, height: 20, filter: 'invert(1)' }} />
+          <span style={{ color: C.fg1, fontSize: 18, fontWeight: 500, letterSpacing: '-0.01em' }}>Ping me!</span>
+        </button>
+      </div>
+    </nav>
+  );
+}
+
+/* ── BUTTONS ─────────────────────────────────────────── */
+function BtnPrimary({ children, onClick }) {
+  const [hov, setHov] = useState(false);
+  return (
+    <button onClick={onClick}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ height: 48, padding: '0 24px', borderRadius: 9999, background: GRAD, color: '#fff', fontFamily: 'Inter', fontSize: 18, fontWeight: 700, border: 'none', cursor: 'pointer', letterSpacing: '-0.01em', opacity: hov ? 0.9 : 1, transition: 'opacity 0.15s' }}>
+      {children}
+    </button>
+  );
+}
+
+function BtnText({ children, onClick }) {
+  return (
+    <button onClick={onClick} style={{ height: 48, padding: '0 24px', background: 'none', border: 'none', color: C.purple, fontFamily: 'Inter', fontSize: 18, fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', letterSpacing: '-0.01em' }}>
+      {children}
+    </button>
+  );
+}
+
+function BtnOutline({ children, onClick }) {
+  return (
+    <button onClick={onClick} style={{ height: 30, padding: '0 10px', borderRadius: 3, background: 'rgba(111,57,255,0.15)', border: `1px solid ${C.purple}`, color: C.purple, fontFamily: 'Inter', fontSize: 14, fontWeight: 700, cursor: 'pointer', letterSpacing: '0.02em' }}>
+      {children}
+    </button>
+  );
+}
+
+/* ── TYPEWRITER ──────────────────────────────────────── */
+function Typewriter() {
+  const words = useMemo(() => ['Digital Marketer', 'SEO Specialist', 'Web Developer'], []);
+  const [text, setText] = useState('');
+  const [wordIdx, setWordIdx] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const word = words[wordIdx % words.length];
+    const delay = deleting ? 80 : 150;
+    const timer = setTimeout(() => {
+      if (deleting) {
+        setText(t => t.slice(0, -1));
+        if (text.length <= 1) { setDeleting(false); setWordIdx(i => i + 1); }
+      } else {
+        if (text.length === word.length) { setTimeout(() => setDeleting(true), 2000); return; }
+        setText(word.slice(0, text.length + 1));
+      }
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [text, deleting, wordIdx, words]);
+
+  return (
+    <span>
+      {text}
+      <span style={{ fontWeight: 100, animation: 'blink 1s step-end infinite' }}>|</span>
+    </span>
+  );
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+function Hero({ onNav }) {
+  return (
+    <section style={{ background: C.bg, minHeight: 516, display: 'grid', gridTemplateColumns: '1fr 1fr', padding: '0 9.75rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '80px 0' }}>
+        <h1 style={{ fontFamily: 'Inter', fontSize: 56, fontWeight: 600, lineHeight: '4.4rem', letterSpacing: '-0.01em', color: C.fg1, marginBottom: 24 }}>
+          Hi, I&apos;m{' '}
+          <span style={{ background: GRAD_TEXT, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Julian</span>,
+          <br /><Typewriter />
+        </h1>
+        <p style={{ fontFamily: 'Inter', fontSize: 24, fontWeight: 400, lineHeight: '36px', letterSpacing: '-0.01em', color: C.fg2, marginBottom: 32, maxWidth: 520 }}>
+          Developer, marketer and writer building things for the web. Based in the Netherlands.
+        </p>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <BtnPrimary onClick={() => onNav('contact')}>Mail me</BtnPrimary>
+          <BtnText onClick={() => onNav('scripting')}>See my work</BtnText>
+        </div>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img src="../../assets/julian-illustration.svg" alt="Julian Aijal" style={{ width: '100%', maxWidth: 480, height: 'auto' }} />
+      </div>
+    </section>
+  );
+}
+
+/* ── SHOWCASE CARD ───────────────────────────────────── */
+const PROJECTS = [
+  { title: 'The Next Web', cat: 'Media & Events', color: '#6f39ff' },
+  { title: 'Where Is My Train', cat: 'Transit / PWA', color: '#35b8fe' },
+  { title: 'PvdAI', cat: 'AI / RAG', color: '#ff641e' },
+  { title: 'Bikepacking Europe', cat: 'Travel & Maps', color: '#fbbc04' },
+  { title: 'Pulse', cat: 'Dashboard', color: '#71c8df' },
+];
+
+function ShowcaseCard({ project, onClick }) {
+  const [hov, setHov] = useState(false);
+  return (
+    <div onClick={onClick}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ width: 360, height: 280, background: C.card, borderRadius: 8, position: 'relative', overflow: 'hidden', cursor: 'pointer', boxShadow: '0px 20px 24px rgba(0,0,0,0.1)', transform: hov ? 'translateY(-4px)' : 'none', transition: 'transform 0.2s ease', flexShrink: 0 }}>
+      <div style={{ position: 'absolute', top: 16, left: 16, right: 16, height: '65%', borderRadius: 4, background: `linear-gradient(135deg, ${project.color}33, ${project.color}11)`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontSize: 40, fontWeight: 700, color: project.color, opacity: 0.3, letterSpacing: '-0.03em' }}>{project.title[0]}</span>
+      </div>
+      <div style={{ position: 'absolute', bottom: 32, left: 16, fontSize: 18, fontWeight: 700, color: C.fg1, letterSpacing: '-0.01em' }}>{project.title}</div>
+      <div style={{ position: 'absolute', bottom: 12, left: 16, fontSize: 14, color: C.fg3, letterSpacing: '-0.01em' }}>{project.cat}</div>
+      <div style={{ position: 'absolute', bottom: 12, right: 12, width: 28, height: 28, opacity: 0.5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img src="../../assets/icons/plus.svg" alt="" style={{ width: '100%', filter: 'invert(1)' }} />
+      </div>
+    </div>
+  );
+}
+
+/* ── SHOWCASE SECTION ────────────────────────────────── */
+function Showcase({ onNav }) {
+  return (
+    <section style={{ background: C.bg, padding: '96px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 48 }}>
+      <h2 style={{ fontFamily: 'Inter', fontSize: 40, fontWeight: 700, letterSpacing: '-0.01em', color: C.fg1, textAlign: 'center' }}>Scripting</h2>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24, justifyContent: 'center', padding: '0 9.75rem' }}>
+        {PROJECTS.map((p, i) => (
+          <ShowcaseCard key={i} project={p} onClick={() => onNav('scripting')} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── ARTICLE CARD ────────────────────────────────────── */
+const ARTICLES = [
+  { icon: 'chart', title: 'What is a knowledge graph and how does one work?', sub: 'It will do wonders for your SEO strategy.' },
+  { icon: 'cloud', title: 'How I built a real-time train departure PWA with Next.js', sub: 'Integrating the NS API for live departures.' },
+  { icon: 'table', title: 'On building AI-powered document Q&A with RAG', sub: 'Semantic search meets conversational UI.' },
+];
+
+function ArticleCard({ article, onClick }) {
+  const [hov, setHov] = useState(false);
+  return (
+    <div onClick={onClick}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ width: '100%', maxWidth: 744, padding: '24px', borderRadius: 6, border: `1px solid ${C.purple}`, background: hov ? 'rgba(111,57,255,0.1)' : 'rgba(111,57,255,0.05)', display: 'flex', gap: 24, alignItems: 'center', cursor: 'pointer', transition: 'background 0.15s' }}>
+      <div style={{ width: 48, height: 48, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img src={`../../assets/icons/${article.icon}.svg`} alt="" style={{ width: 40, height: 40, filter: 'invert(1)', opacity: 0.8 }} />
+      </div>
+      <div style={{ flex: 1 }}>
+        <div style={{ fontFamily: 'Inter', fontSize: 18, fontWeight: 700, color: C.fg1, letterSpacing: '-0.01em', lineHeight: '1.4', marginBottom: 4 }}>{article.title}</div>
+        <div style={{ fontFamily: 'Inter', fontSize: 14, color: C.fg3, letterSpacing: '-0.01em' }}>{article.sub}</div>
+      </div>
+      <BtnOutline onClick={onClick}>Read more</BtnOutline>
+    </div>
+  );
+}
+
+/* ── RAMBLINGS SECTION ───────────────────────────────── */
+function Ramblings({ onNav }) {
+  return (
+    <section style={{ background: C.bg, padding: '96px 9.75rem', display: 'flex', gap: 64, alignItems: 'flex-start' }}>
+      <div style={{ flexShrink: 0, width: 360 }}>
+        <h2 style={{ fontFamily: 'Inter', fontSize: 40, fontWeight: 700, letterSpacing: '-0.01em', color: C.fg1, marginBottom: 16 }}>Ramblings</h2>
+        <p style={{ fontFamily: 'Inter', fontSize: 18, color: C.fg2, lineHeight: '27px', letterSpacing: '-0.01em' }}>
+          Writing about SEO, web development, and building things with code. Sometimes I ramble.
+        </p>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, flex: 1 }}>
+        {ARTICLES.map((a, i) => (
+          <ArticleCard key={i} article={a} onClick={() => onNav('ramblings')} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── FOOTER ──────────────────────────────────────────── */
+const SOCIAL = [
+  { icon: 'github', label: 'GitHub' }, { icon: 'linkedin', label: 'LinkedIn' },
+  { icon: 'x', label: 'X' }, { icon: 'instagram', label: 'Instagram' },
+  { icon: 'bluesky', label: 'Bluesky' }, { icon: 'threads', label: 'Threads' },
+  { icon: 'tiktok', label: 'TikTok' },
+];
+
+function Footer() {
+  return (
+    <footer style={{ background: C.bg, borderTop: '1px solid rgba(255,255,255,0.08)', height: 112, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 9.75rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <img src="../../assets/icons/envelope.svg" alt="" style={{ width: 32, height: 32, filter: 'invert(1)' }} />
+        <span style={{ fontFamily: 'Inter', fontSize: 32, fontWeight: 700, letterSpacing: '-0.01em', color: C.fg1 }}>Ping me!</span>
+      </div>
+      <img src="../../assets/julian-aijal-logo.svg" alt="Julian Aijal" style={{ height: 28, filter: 'invert(1)' }} />
+      <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+        {SOCIAL.map(({ icon, label }) => (
+          <img key={icon} src={`../../assets/icons/${icon}.svg`} alt={label} style={{ width: 28, height: 28, filter: 'invert(1)', opacity: 0.75, cursor: 'pointer' }} />
+        ))}
+      </div>
+    </footer>
+  );
+}
+
+/* ── SCRIPTING PAGE ──────────────────────────────────── */
+function ScriptingPage({ onNav }) {
+  return (
+    <div>
+      <section style={{ background: C.bg, padding: '96px 9.75rem' }}>
+        <h1 style={{ fontFamily: 'Inter', fontSize: 56, fontWeight: 600, letterSpacing: '-0.01em', color: C.fg1, marginBottom: 16 }}>Scripting</h1>
+        <p style={{ fontFamily: 'Inter', fontSize: 24, color: C.fg2, lineHeight: '36px', letterSpacing: '-0.01em', maxWidth: 640, marginBottom: 64 }}>
+          Projects, experiments, and things I've built on the web.
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+          {PROJECTS.map((p, i) => (
+            <ShowcaseCard key={i} project={p} onClick={() => {}} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ── RAMBLINGS PAGE ──────────────────────────────────── */
+function RamblingsPage({ onNav }) {
+  return (
+    <div>
+      <section style={{ background: C.bg, padding: '96px 9.75rem' }}>
+        <h1 style={{ fontFamily: 'Inter', fontSize: 56, fontWeight: 600, letterSpacing: '-0.01em', color: C.fg1, marginBottom: 16 }}>Ramblings</h1>
+        <p style={{ fontFamily: 'Inter', fontSize: 24, color: C.fg2, lineHeight: '36px', letterSpacing: '-0.01em', maxWidth: 640, marginBottom: 64 }}>
+          Thoughts on SEO, development, and the web.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 744 }}>
+          {ARTICLES.map((a, i) => (
+            <ArticleCard key={i} article={a} onClick={() => {}} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ── CONTACT PAGE ────────────────────────────────────── */
+function ContactPage() {
+  return (
+    <section style={{ background: C.bg, padding: '96px 9.75rem', minHeight: 400, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+      <h1 style={{ fontFamily: 'Inter', fontSize: 56, fontWeight: 600, letterSpacing: '-0.01em', color: C.fg1, marginBottom: 24 }}>Ping me!</h1>
+      <p style={{ fontFamily: 'Inter', fontSize: 24, color: C.fg2, lineHeight: '36px', letterSpacing: '-0.01em', maxWidth: 560, marginBottom: 40 }}>
+        Have a project in mind? Want to work together? Or just want to say hi — I'm always up for a chat.
+      </p>
+      <BtnPrimary onClick={() => window.open('mailto:hello@julianaijal.com')}>hello@julianaijal.com</BtnPrimary>
+    </section>
+  );
+}
+
+/* ── APP ─────────────────────────────────────────────── */
+function App() {
+  const [page, setPage] = useState('home');
+  const scrollRef = useRef(null);
+
+  const onNav = (p) => {
+    setPage(p);
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  };
+
+  return (
+    <div id="scroll-root" ref={scrollRef} style={{ height: '100vh', overflowY: 'auto' }}>
+      <style>{`
+        @keyframes blink { from,to{opacity:1} 50%{opacity:0} }
+        button:focus { outline: 2px solid #6f39ff; outline-offset: 2px; }
+      `}</style>
+      <NavBar page={page} onNav={onNav} />
+      {page === 'home' && <>
+        <Hero onNav={onNav} />
+        <Showcase onNav={onNav} />
+        <Ramblings onNav={onNav} />
+        <Footer />
+      </>}
+      {page === 'scripting' && <><ScriptingPage onNav={onNav} /><Footer /></>}
+      {page === 'ramblings' && <><RamblingsPage onNav={onNav} /><Footer /></>}
+      {page === 'contact' && <><ContactPage /><Footer /></>}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

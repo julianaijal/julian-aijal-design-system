@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #111827; font-family: 'Inter', sans-serif; padding: 20px; }
+  .section { margin-bottom: 20px; }
+  .title { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+  /* Spacing */
+  .sp-row { display: flex; gap: 12px; align-items: flex-end; }
+  .sp-item { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .sp-bar  { background: rgba(111,57,255,0.6); border-radius: 2px; height: 8px; }
+  .sp-lbl  { font-size: 10px; color: rgba(255,255,255,0.4); }
+  /* Radius */
+  .rad-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+  .rad-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .rad-box  { width: 48px; height: 36px; background: rgba(111,57,255,0.3); border: 1px solid rgba(111,57,255,0.6); }
+  .rad-lbl  { font-size: 10px; color: rgba(255,255,255,0.4); text-align: center; }
+  /* Shadow */
+  .shad-row { display: flex; gap: 16px; }
+  .shad-item { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .shad-box  { width: 64px; height: 48px; background: rgba(255,255,255,0.1); border-radius: 8px; }
+  .shad-lbl  { font-size: 10px; color: rgba(255,255,255,0.4); }
+</style>
+</head><body>
+  <div class="section">
+    <div class="title">Spacing scale</div>
+    <div class="sp-row">
+      <div class="sp-item"><div class="sp-bar" style="width:4px"></div><div class="sp-lbl">4</div></div>
+      <div class="sp-item"><div class="sp-bar" style="width:8px"></div><div class="sp-lbl">8</div></div>
+      <div class="sp-item"><div class="sp-bar" style="width:12px"></div><div class="sp-lbl">12</div></div>
+      <div class="sp-item"><div class="sp-bar" style="width:16px"></div><div class="sp-lbl">16</div></div>
+      <div class="sp-item"><div class="sp-bar" style="width:24px"></div><div class="sp-lbl">24</div></div>
+      <div class="sp-item"><div class="sp-bar" style="width:32px"></div><div class="sp-lbl">32</div></div>
+      <div class="sp-item"><div class="sp-bar" style="width:48px"></div><div class="sp-lbl">48</div></div>
+      <div class="sp-item"><div class="sp-bar" style="width:64px"></div><div class="sp-lbl">64</div></div>
+      <div class="sp-item"><div class="sp-bar" style="width:96px"></div><div class="sp-lbl">96</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="title">Border radius</div>
+    <div class="rad-row">
+      <div class="rad-item"><div class="rad-box" style="border-radius:3px"></div><div class="rad-lbl">3px<br>sm</div></div>
+      <div class="rad-item"><div class="rad-box" style="border-radius:6px"></div><div class="rad-lbl">6px<br>md</div></div>
+      <div class="rad-item"><div class="rad-box" style="border-radius:8px"></div><div class="rad-lbl">8px<br>lg</div></div>
+      <div class="rad-item"><div class="rad-box" style="width:80px;border-radius:9999px"></div><div class="rad-lbl">9999px<br>full</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="title">Shadows</div>
+    <div class="shad-row">
+      <div class="shad-item">
+        <div class="shad-box" style="box-shadow:0px 20px 24px 0px rgba(0,0,0,0.10)"></div>
+        <div class="shad-lbl">card</div>
+      </div>
+      <div class="shad-item">
+        <div class="shad-box" style="box-shadow:0 4px 6px -1px rgba(0,0,0,0.3)"></div>
+        <div class="shad-lbl">nav scroll</div>
+      </div>
+    </div>
+  </div>
+</body></html>

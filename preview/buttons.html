@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #111827; font-family: 'Inter', sans-serif; padding: 24px; display: flex; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+  .group { display: flex; flex-direction: column; gap: 8px; }
+  .lbl { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; text-transform: uppercase; }
+  .row { display: flex; gap: 12px; align-items: center; }
+
+  /* Primary — gradient pill */
+  .btn-primary {
+    height: 48px; padding: 0 24px; border-radius: 9999px;
+    background: linear-gradient(180deg, #6f39ff 0%, #35b8fe 100%);
+    color: #fff; font: 700 18px/1 'Inter'; letter-spacing: -0.01em;
+    border: none; cursor: pointer; white-space: nowrap;
+  }
+  .btn-primary-hover {
+    height: 48px; padding: 0 24px; border-radius: 9999px;
+    background: linear-gradient(180deg, #35b8fe 0%, #6f39ff 100%);
+    color: #fff; font: 700 18px/1 'Inter'; letter-spacing: -0.01em;
+    border: none; cursor: pointer; white-space: nowrap;
+  }
+
+  /* Secondary — dark ghost pill */
+  .btn-secondary {
+    height: 48px; padding: 0 24px; border-radius: 9999px;
+    background: rgba(0,0,0,0.15);
+    color: #fff; font: 700 18px/1 'Inter'; letter-spacing: -0.01em;
+    border: none; cursor: pointer; white-space: nowrap;
+  }
+
+  /* Text / link */
+  .btn-text {
+    height: 48px; padding: 0 24px;
+    color: #6f39ff; font: 700 18px/1 'Inter'; letter-spacing: -0.01em;
+    background: none; border: none; cursor: pointer; text-decoration: underline;
+  }
+  .btn-text-hover {
+    height: 48px; padding: 0 24px;
+    color: #6f39ff; font: 700 18px/1 'Inter'; letter-spacing: -0.01em;
+    background: none; border: none; cursor: pointer; text-decoration: none;
+  }
+
+  /* Tertiary outline — purple */
+  .btn-outline {
+    height: 30px; padding: 0 10px; border-radius: 3px;
+    background: rgba(111,57,255,0.15); border: 1px solid #6f39ff;
+    color: #6f39ff; font: 700 14px/1 'Inter'; letter-spacing: 0.02em;
+    cursor: pointer;
+  }
+  .btn-outline-hover {
+    height: 30px; padding: 0 10px; border-radius: 3px;
+    background: rgba(111,57,255,0); border: 1px solid #6f39ff;
+    color: #6f39ff; font: 700 14px/1 'Inter'; letter-spacing: 0.02em;
+    cursor: pointer;
+  }
+
+  /* Skill tag — orange */
+  .btn-skill {
+    height: 30px; padding: 0 10px; border-radius: 3px;
+    background: rgba(255,100,30,0.15); border: 1px solid #ff641e;
+    color: #ff641e; font: 700 14px/1 'Inter'; letter-spacing: 0.02em;
+    cursor: pointer; white-space: nowrap;
+  }
+
+  .divider { width: 1px; height: 48px; background: rgba(255,255,255,0.08); }
+  .divider-sm { width: 1px; height: 30px; background: rgba(255,255,255,0.08); }
+  .state { font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; text-transform: uppercase; text-align: center; }
+</style>
+</head>
+<body>
+
+  <div class="group">
+    <div class="lbl">Primary · gradient pill</div>
+    <div class="row">
+      <div>
+        <button class="btn-primary">Download CV</button>
+        <div class="state">default</div>
+      </div>
+      <div>
+        <button class="btn-primary-hover">Download CV</button>
+        <div class="state">hover (reversed)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="lbl">Secondary · dark ghost</div>
+    <div class="row">
+      <div>
+        <button class="btn-secondary">Download CV</button>
+        <div class="state">default</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="lbl">Text / link</div>
+    <div class="row">
+      <div>
+        <button class="btn-text">Download CV</button>
+        <div class="state">default</div>
+      </div>
+      <div>
+        <button class="btn-text-hover">Download CV</button>
+        <div class="state">hover (no underline)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="lbl">Tertiary outline · purple</div>
+    <div class="row">
+      <div>
+        <button class="btn-outline">Read more</button>
+        <div class="state">default</div>
+      </div>
+      <div>
+        <button class="btn-outline-hover">Read more</button>
+        <div class="state">hover (no fill)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="lbl">Skill tag · orange</div>
+    <div class="row">
+      <button class="btn-skill">HTML</button>
+      <button class="btn-skill">CSS</button>
+      <button class="btn-skill">JavaScript</button>
+    </div>
+  </div>
+
+</body></html>

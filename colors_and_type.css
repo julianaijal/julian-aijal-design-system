@@ -1,0 +1,219 @@
+/* ============================================================
+   Julian Aijal Design System — Colors & Typography
+   Source: Figma "Julian Portfolio.fig" + github.com/julianaijal/julianaijal.com
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ─────────────────────────────────────────
+   BASE COLOR TOKENS
+───────────────────────────────────────── */
+:root {
+  /* Brand palette */
+  --color-bg:         #111827;   /* Dark navy — primary surface */
+  --color-purple:     #6f39ff;   /* Brand purple — primary accent */
+  --color-purple-mid: #9747ff;   /* Mid purple — strokes / highlights */
+  --color-blue:       #35b8fe;   /* Bright blue — gradient end, accent */
+  --color-orange:     #ff641e;   /* Orange — tertiary accent */
+  --color-yellow:     #fbbc04;   /* Yellow — tertiary accent */
+  --color-teal:       #71c8df;   /* Teal — data/chart accent */
+  --color-mid-blue:   #2a88c9;   /* Mid blue — data/chart accent */
+  --color-grey:       #858585;   /* Neutral grey */
+
+  /* Text */
+  --color-text-primary:   #ffffff;
+  --color-text-secondary: rgba(255,255,255,0.75);
+  --color-text-muted:     rgba(255,255,255,0.50);
+  --color-text-dark:      #111827;
+
+  /* Surfaces */
+  --color-surface-overlay: rgba(255,255,255,0.10);
+  --color-surface-purple:  rgba(111,57,255,0.15);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(90deg, #6f39ff 0%, #35b8fe 100%);
+  --gradient-brand-text: linear-gradient(86.58deg, #6f39ff 32.64%, #35b8fe 60.62%);
+  --gradient-button: linear-gradient(180deg, #6f39ff 0%, #35b8fe 100%);
+
+  /* ─────────────────────────────────────────
+     SEMANTIC COLOR TOKENS
+  ───────────────────────────────────────── */
+  --fg1:        var(--color-text-primary);
+  --fg2:        var(--color-text-secondary);
+  --fg3:        var(--color-text-muted);
+  --bg:         var(--color-bg);
+  --accent:     var(--color-purple);
+  --accent2:    var(--color-blue);
+  --border:     var(--color-purple);
+  --card-bg:    var(--color-surface-overlay);
+
+  /* ─────────────────────────────────────────
+     TYPOGRAPHY TOKENS
+  ───────────────────────────────────────── */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Font weights */
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+
+  /* Type scale */
+  --text-xs:   14px;
+  --text-sm:   16px;
+  --text-base: 18px;
+  --text-lg:   24px;
+  --text-xl:   32px;
+  --text-2xl:  40px;
+  --text-3xl:  56px;
+
+  /* Line heights */
+  --lh-tight:  1.15;
+  --lh-snug:   1.2;
+  --lh-normal: 1.5;
+
+  /* Letter spacing */
+  --ls-tight: -0.01em;
+  --ls-wide:  0.02em;
+
+  /* ─────────────────────────────────────────
+     SPACING & LAYOUT
+  ───────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+
+  --max-width: 70rem;   /* 1120px — matches $max-width in SCSS */
+
+  /* ─────────────────────────────────────────
+     BORDER RADIUS
+  ───────────────────────────────────────── */
+  --radius-sm:  3px;
+  --radius-md:  6px;
+  --radius-lg:  8px;
+  --radius-full: 9999px;
+
+  /* ─────────────────────────────────────────
+     SHADOWS
+  ───────────────────────────────────────── */
+  --shadow-card: 0px 20px 24px 0px rgba(0,0,0,0.10);
+}
+
+/* ─────────────────────────────────────────
+   SEMANTIC TYPE STYLES
+───────────────────────────────────────── */
+
+/* H1 — Hero title */
+.h1, h1 {
+  font-family: var(--font-sans);
+  font-size: var(--text-3xl);       /* 56px */
+  font-weight: var(--fw-semibold);
+  line-height: 4.4rem;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg1);
+}
+
+/* H2 — Section heading */
+.h2, h2 {
+  font-family: var(--font-sans);
+  font-size: var(--text-2xl);       /* 40px */
+  font-weight: var(--fw-bold);
+  line-height: 48px;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg1);
+}
+
+/* H3 — Card/sub-heading */
+.h3, h3 {
+  font-family: var(--font-sans);
+  font-size: var(--text-xl);        /* 32px */
+  font-weight: var(--fw-bold);
+  line-height: 48px;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg1);
+}
+
+/* H4 — Card title */
+.h4, h4 {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);      /* 18px */
+  font-weight: var(--fw-bold);
+  line-height: 22px;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg1);
+}
+
+/* Lead / intro paragraph */
+.lead {
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);        /* 24px */
+  font-weight: var(--fw-regular);
+  line-height: 36px;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg2);
+}
+
+/* Body */
+.body, p {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);      /* 18px */
+  font-weight: var(--fw-regular);
+  line-height: 27px;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg2);
+}
+
+/* Small / caption */
+.small, small {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);        /* 16px */
+  font-weight: var(--fw-regular);
+  line-height: 20px;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg3);
+}
+
+/* Label / eyebrow */
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);        /* 14px */
+  font-weight: var(--fw-bold);
+  line-height: 14px;
+  letter-spacing: var(--ls-wide);
+  color: var(--fg3);
+  text-transform: uppercase;
+}
+
+/* Nav item */
+.nav-item {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);      /* 18px */
+  font-weight: var(--fw-medium);
+  line-height: 100%;
+  color: var(--fg1);
+}
+
+/* Name gradient — used in hero */
+.gradient-text {
+  background: var(--gradient-brand-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Code */
+code, .code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-surface-overlay);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--color-blue);
+}
