@@ -2,11 +2,13 @@
 
 A design system for **julianaijal.com** — the personal portfolio and blog of Julian Aijal.
 
+**Preview:** [julian-aijal-design-system.vercel.app](https://julian-aijal-design-system.vercel.app)
+
 ## Sources
 
 | Resource | Location |
 |---|---|
-| Figma file | `Julian Portfolio.fig` (mounted as virtual filesystem) |
+| Figma file | `Julian Portfolio.fig` |
 | Codebase | [github.com/julianaijal/julianaijal.com](https://github.com/julianaijal/julianaijal.com) |
 | Live site | [julianaijal.com](https://julianaijal.com) |
 
@@ -67,7 +69,7 @@ The palette is bold and minimal — a very dark navy background (`#111827`) with
 ### Backgrounds & Surfaces
 - **Everything is dark.** There is no light mode. The entire page uses `#111827` as its background.
 - **Cards** use `rgba(255,255,255,0.1)` — a subtle white overlay creating glassmorphism-lite.
-- **Article cards** use a repeating texture/pattern image as background (`746a6499a51e.png`) plus a `1px solid #6f39ff` purple border.
+- **Article cards** use a repeating texture/pattern image as background (`article-card-texture.png`) plus a `1px solid #6f39ff` purple border.
 - No gradients used as backgrounds (only on text and buttons).
 - No full-bleed photography backgrounds.
 
@@ -79,10 +81,12 @@ The palette is bold and minimal — a very dark navy background (`#111827`) with
 - Navigation height: **80px**
 
 ### Buttons
-Three types, all 48px tall:
-1. **Primary (gradient pill)**: `border-radius: 9999px`, gradient background (`#6f39ff` → `#35b8fe`), white bold text, 24px horizontal padding
-2. **Text/link button**: no background, purple (`#6f39ff`) bold text with underline
-3. **Small outline button** ("Read more"): `border-radius: 3px`, purple border, `rgba(111,57,255,0.15)` fill, purple bold uppercase text, 14px font, `+0.02em` letter spacing
+Five types:
+1. **Primary (gradient pill)**: 48px tall, `border-radius: 9999px`, gradient background (`#6f39ff` → `#35b8fe`), white bold text, 24px horizontal padding. Hover: reversed gradient (`#35b8fe` → `#6f39ff`).
+2. **Secondary (dark ghost pill)**: 48px tall, `border-radius: 9999px`, `rgba(0,0,0,0.15)` background, white bold text.
+3. **Text/link button**: 48px tall, no background, purple (`#6f39ff`) bold text with underline. Hover: underline removed.
+4. **Outline button** ("Read more"): 30px tall, `border-radius: 3px`, purple border, `rgba(111,57,255,0.15)` fill, purple bold uppercase text, 14px font, `+0.02em` letter spacing. Hover: fill removed.
+5. **Skill tag**: 30px tall, `border-radius: 3px`, orange (`#ff641e`) border and text, `rgba(255,100,30,0.15)` fill, bold uppercase 14px. Used for skill/category labels (e.g. "HTML", "CSS").
 
 ### Cards
 - **Showcase card**: `360×280px`, `border-radius: 8px`, `rgba(255,255,255,0.1)` bg, `box-shadow: 0px 20px 24px rgba(0,0,0,0.1)`, contains a cover image, project name, category in muted text, and a `+` icon
@@ -90,9 +94,9 @@ Three types, all 48px tall:
 
 ### Icons & Imagery
 - SVG icons only. Custom set for social (GitHub, LinkedIn, X, Instagram, Bluesky, Threads, TikTok) plus UI icons (envelope, plus, chart, cloud, table).
-- Hero illustration: custom SVG of Julian as a flat, vector character (`julian.svg` / `8534f07ca983.png`). Warm, friendly, hand-drawn feel.
+- Hero illustration: custom SVG of Julian as a flat, vector character. Warm, friendly, hand-drawn feel.
 - No stock photography in UI.
-- Project/card images: real screenshots of projects.
+- Project/card images: real screenshots of projects. Overall image palette skews dark, matching the navy background.
 
 ### Animation & Interaction
 - **Typewriter effect** on hero — cycles through job titles with character-by-character typing and deletion.
@@ -102,10 +106,12 @@ Three types, all 48px tall:
 - No bouncy/spring animations. Easing is `ease` / `ease-in-out`. Subtle and professional.
 
 ### Hover States
-- Nav links: implied — no explicit hover defined in code (likely opacity or color shift)
-- Primary button: gradient background (no hover variant in Figma — stays gradient)
-- Cards: no explicit hover state in code
-- Footer contact "Ping me!": link, inherits color
+- Nav links: subtle opacity shift
+- Primary button: gradient reverses (`#35b8fe` → `#6f39ff`)
+- Text button: underline removed
+- Outline button: fill removed
+- Cards: no hover state
+- Footer "Ping me!": inherits link color
 
 ### Corner Radii
 | Context | Radius |
@@ -121,9 +127,6 @@ Three types, all 48px tall:
 - Article card border: `1px solid #6f39ff`
 - No inner shadows. No outline/glow effects.
 - Nav: scrolled state only — `0 4px 6px -1px rgba(0,0,0,0.3)`
-
-### Color vibe of imagery
-- Project screenshots are shown naturally. The hero illustration is colorful but not photorealistic. Overall image palette skews dark, matching the navy background.
 
 ---
 
@@ -149,9 +152,12 @@ All icons copied from the production codebase into `assets/icons/`:
 | `threads.svg` | Social footer |
 | `tiktok.svg` | Social footer |
 | `chart.svg` | Article category icon |
+| `chart-fig.svg` | Article category icon (Figma variant) |
 | `cloud.svg` | Article category icon |
 | `table.svg` | Article category icon |
 | `plus.svg` | Showcase card CTA |
+| `envelope-large.svg` | Large contact icon |
+| `envelope-fig.svg` | Contact icon (Figma variant) |
 
 Logo: `assets/julian-aijal-logo.svg` — horizontal wordmark "JA" monogram + name.
 
@@ -161,18 +167,26 @@ Logo: `assets/julian-aijal-logo.svg` — horizontal wordmark "JA" monogram + nam
 
 ```
 README.md                    — This file
-SKILL.md                     — Agent skill manifest
+SKILL.md                     — Agent skill manifest (entry point for AI tooling)
 colors_and_type.css          — All CSS custom properties + semantic type styles
+index.html                   — Design system overview (all tabs/sections)
+vercel.json                  — Vercel deployment config
 
 assets/
   julian-aijal-logo.svg      — Brand logo (SVG)
   julian-illustration.svg    — Hero illustration (SVG)
-  julian-illustration.png    — Hero illustration (PNG, from Figma)
+  julian-illustration.png    — Hero illustration (PNG)
+  article-card-texture.png   — Repeating texture used on article cards
+  project-screenshot.jpg     — Sample project image for showcase cards
   icons/                     — All SVG icons (see ICONOGRAPHY above)
 
-preview/                     — Design System tab cards
+screenshots/                 — Reference screenshots
+  01-colors-brand.png
+  cards.png
+
+preview/                     — Design system preview pages
   colors-brand.html
-  colors-semantic.html
+  colors-text.html
   type-scale.html
   type-specimens.html
   buttons.html
@@ -181,14 +195,13 @@ preview/                     — Design System tab cards
   footer.html
   icons.html
   spacing.html
+  project-detail.html
 
 ui_kits/
   website/                   — Portfolio website UI kit
-    README.md
     index.html               — Full interactive prototype
-    NavBar.jsx
-    Hero.jsx
-    ShowcaseCard.jsx
-    ArticleCard.jsx
-    Footer.jsx
+
+app/                         — Next.js components (production codebase)
+  _components/               — React components (Hero, NavBar, Footer, etc.)
+  styles/                    — SCSS modules per component
 ```
